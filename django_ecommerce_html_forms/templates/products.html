@@ -7,11 +7,14 @@
     {% if featured_products %}
       <!-- Loop through all featured products and render the component below replacing each part properly -->
       <!-- YOUR FOR LOOP HERE -->
+      
+      {% for featured_product in featured_products %}
+      
         <div class="card mx-auto" style="height: 100%; width: 12rem;">
           {% if featured_product.productimage_set.all %}
           <div class="product-image-container">
             <!-- Replace the src tag with the FIRST url image of the product-->
-            <img class="card-img-top product-image" src="https://via.placeholder.com/150x150" alt="Card image cap">
+            <img class="card-img-top product-image" src={{ featured_product.productimage_set.first.url }} alt="Card image cap">
           </div>
           {% else %}
           <div class="product-image-container">
@@ -21,14 +24,17 @@
           {% endif %}
           <div class="card-body text-center">
             <!-- Complete product name -->
-            <h5 class="card-title text-truncate" title="TEST PRODUCT">TEST PRODUCT</h5>
+            <h5 class="card-title text-truncate" title={{ featured_product.name}}>{{ featured_product.name}}</h5>
             <!-- Complete product price -->
-            <p class="card-text">$999.99</p>
+            <p class="card-text">{{ featured_product.price}}</p>
             <!-- Complete href property with product id at the end -->
-            <a href="/edit-product/99999" class="btn btn-primary">Details</a>
+            <a href="/edit-product/"+{{ featured_product.id }} class="btn btn-primary">Details</a>
           </div>
         </div>
       </div>
+      
+      
+      {% endfor %}
       <!-- YOUR END FOR LOOP HERE -->
     {% else %}
       <div class="col">
