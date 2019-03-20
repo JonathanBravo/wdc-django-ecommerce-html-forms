@@ -5,7 +5,13 @@
     {% csrf_token %}
     <a style="margin-bottom: 10px;" class="btn btn-outline-primary float-right" href="/products" role="button">Back to products</a>
     <p class="lead">Create a new product:</p>
-
+    
+    <div>
+      {% if errors.duplicate %}
+        <p style="color: #dc3545">{{errors.duplicate}}</p>
+      {% endif %}
+    </div>
+    
     <div class="form-group">
       <label for="name"><b>Name *</b></label>
       <input type="text" class="form-control {% if errors.name %}is-invalid{% endif %}" id="name" name="name">
@@ -13,19 +19,22 @@
         <p style="color: #dc3545">{{errors.name}}</p>
       {% endif %}
     </div>
+    
     <div class="form-group">
       <label for="sku"><b>SKU *</b></label>
       <!-- Add is-invalid class to SKU input in case of error -->
-      <input type="text" class="form-control" id="sku" name="sku">
-      <!-- Show SKU error -->
-      <!-- YOUR CODE HERE -->
+      <input type="text" class="form-control {% if errors.sku %}is-invalid{% endif %}" id="sku" name="sku">
+      {% if errors.sku %}
+        <p style="color: #dc3545">{{errors.sku}}</p>
+      {% endif %}
     </div>
     <div class="form-group">
       <label for="price"><b>Price *</b></label>
       <!-- Add is-invalid class to Price input in case of error -->
-      <input type="number" class="form-control" id="price" name="price" step=".1">
-      <!-- Show Price error -->
-      <!-- YOUR CODE HERE -->
+      <input type="number" class="form-control {% if errors.price %}is-invalid{% endif %}" id="price" name="price" step=".1">
+      {% if errors.price %}
+        <p style="color: #dc3545">{{errors.price}}</p>
+      {% endif %}
     </div>
     <div class="form-group">
       <label for="category"><b>Category</b></label>
